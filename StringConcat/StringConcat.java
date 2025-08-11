@@ -6,6 +6,9 @@ public class StringConcat {
         if (s2 == null){
             s2 = "";
         }
+        if (s2 == null && s1 == null){
+            return null;
+        }
         return s1 + s2;
         }
 }
