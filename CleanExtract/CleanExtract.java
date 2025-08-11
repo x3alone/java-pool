@@ -1,31 +1,31 @@
 public class CleanExtract {
+
     public static String extract(String s) {
-        if (s == null || s.isEmpty()){
-            return "";
-        }
-        String[] items = s.split("\\|");
-        StringBuilder res= new StringBuilder(); 
-        for ( String item : items){
-            String single = item.trim();
-            while (single.startsWith(".")){
-                single = single.substring(1).trim();
+        String[] res = s.split("\\|");
+        StringBuilder name = new StringBuilder();
+        for (String single : res) {
+            String Item;
+            int start = single.indexOf(".");
+            int end = single.lastIndexOf(".");
+            if (start > -1) {
+                if (start == end) {
+                    Item = single.substring(start + 1);
+                } else {
+                    Item = single.substring(start + 1, end);
+                }
+            } else {
+                Item = single;
             }
 
-            while (single.endsWith(".")){
-                single = single.substring(0, single.length()-1).trim();
-            }
-            if (single.isEmpty()) continue;
-            if (single.substring(1, single.length() - 1).contains(".")) {
-                String[] words = single.split("\\s+");
-                String lastWord = words[words.length - 1];
-                lastWord = lastWord.replaceAll("^\\.+", "");
-                single = lastWord.trim();
-            }
-                if (res.length()>0){
-                    res.append(" ");
+            Item = Item.trim();
+            if (!Item.isEmpty()) {
+                if (name.length() > 0) {
+                    name.append(" ");
                 }
-                res.append(single);
+                name.append(Item);
+            }
         }
-        return res.toString();
+
+        return name.toString();
     }
 }
