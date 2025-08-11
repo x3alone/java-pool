@@ -3,6 +3,9 @@ public class StringContains {
         if (s == null){
             return false;
         }
+        if (subString == null){
+            return false;
+        }
                return s.contains(subString);
         }
 }
