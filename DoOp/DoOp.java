@@ -15,22 +15,18 @@ public class DoOp {
 
         if (sign.equals("+")) {
             return String.valueOf(first + sec);
-        }
-        if (sign.equals("x")) {
+        }else if (sign.equals("x")) {
             return String.valueOf(first * sec);
-        }
-        if (sign.equals("-")) {
+        }else if (sign.equals("-")) {
             return String.valueOf(first - sec);
-        }
-        if (sign.equals("%")) {
+        }else if (sign.equals("%")) {
             if (sec == 0) return "Error";
             return String.valueOf(first % sec);
-        }
-        if (sign.equals("/")) {
+        }else if (sign.equals("/")) {
             if (sec == 0) return "Error";
             return String.valueOf(first / sec);
+        }else {
+            return "Error";
         }
-
-        return "Error";
     }
 }
