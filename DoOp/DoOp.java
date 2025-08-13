@@ -1,11 +1,16 @@
 public class DoOp {
     public static String operate(String[] args) {
         if (args == null || args.length < 3) {
-            return "it depend on the input.";
+            return "Error";
         }
-
-        int first = Integer.parseInt(args[0]);
-        int sec = Integer.parseInt(args[2]);
+        int first;
+        int sec;
+        try {
+            first = Integer.parseInt(args[0]);
+            sec = Integer.parseInt(args[2]);
+        } catch (NumberFormatException e) {
+            return "Error";
+        }
         String sign = args[1];
 
         if (sign.equals("+")) {
@@ -26,6 +31,6 @@ public class DoOp {
             return String.valueOf(first / sec);
         }
 
-        return "Invalid operation";
+        return "Error";
     }
 }
