@@ -1,4 +1,3 @@
-java Star.java
 public  class Star extends CelestialObject{
     private double magnitude ;
 
