@@ -18,19 +18,32 @@ public class Planet extends CelestialObject {
     }
 
     @Override
-    public int hashCode() {
-        return (centerStar == null) ? 0 : centerStar.hashCode();
+     public int hashCode(){
+        return java.util.Objects.hash(getName(), getX(), getY(), getZ(), getCenterStar());
     }
 
+    // public boolean equals(Object obj) {
+        //     if (this == obj) return true;
+        //     if (!(obj instanceof Planet)) return false;
+        //     Planet other = (Planet) obj;
+        //     if (centerStar == null) {
+            //         return other.centerStar == null;
+            //     }
+            //     return centerStar.equals(other.centerStar);
+            // }
+    
+    
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof Planet)) return false;
+    public boolean equals(Object obj){
+        if (this == null || obj == null) return false;
+        
+        if (getClass() != obj.getClass()) return false;
+        
         Planet other = (Planet) obj;
-        if (centerStar == null) {
-            return other.centerStar == null;
+        if (this.getName() == other.getName() && this.getX() == other.getX() && this.getY() == other.getX() && this.getZ() == other.getZ() && this.getCenterStar() == other.getCenterStar()){
+            return  true;
         }
-        return centerStar.equals(other.centerStar);
+        return false;
     }
 
     @Override
