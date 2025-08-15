@@ -1,3 +1,6 @@
+import java.util.Objects;
+
+
 public class CelestialObject {
     private double x;
     private double y;

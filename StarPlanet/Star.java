@@ -1,3 +1,4 @@
+import java.util.Objects;
 
 public class Star extends CelestialObject {
     private double magnitude;
