@@ -1,3 +1,4 @@
+
 public class Planet extends CelestialObject {
 
     private Star centerStar;
@@ -6,43 +7,54 @@ public class Planet extends CelestialObject {
         super();
         this.centerStar = new Star();
     }
+
     public Planet(String name, double x, double y, double z, Star centerStar) {
         super(name, x, y, z);
         this.centerStar = centerStar;
     }
+
     public Star getCenterStar() {
         return centerStar;
     }
+
     public void setCenterStar(Star centerStar) {
         this.centerStar = centerStar;
     }
 
     @Override
-     public int hashCode(){
+    public int hashCode() {
         return java.util.Objects.hash(getName(), getX(), getY(), getZ(), getCenterStar());
     }
 
     // public boolean equals(Object obj) {
-        //     if (this == obj) return true;
-        //     if (!(obj instanceof Planet)) return false;
-        //     Planet other = (Planet) obj;
-        //     if (centerStar == null) {
-            //         return other.centerStar == null;
-            //     }
-            //     return centerStar.equals(other.centerStar);
-            // }
-    
-    
+    //     if (this == obj) return true;
+    //     if (!(obj instanceof Planet)) return false;
+    //     Planet other = (Planet) obj;
+    //     if (centerStar == null) {
+    //         return other.centerStar == null;
+    //     }
+    //     return centerStar.equals(other.centerStar);
+    // }
     @Override
-    public boolean equals(Object obj){
-        if (this == null || obj == null) return false;
-        
-        if (getClass() != obj.getClass()) return false;
-        
-        Planet other = (Planet) obj;
-        if (this.getName() == other.getName() && this.getX() == other.getX() && this.getY() == other.getX() && this.getZ() == other.getZ() && this.getCenterStar() == other.getCenterStar()){
-            return  true;
+    public boolean equals(Object obj) {
+        if (this == null || obj == null) {
+            return false;
         }
+
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+
+        Planet other = (Planet) obj;
+
+        if (this.getName().equals(other.getName())
+                && Double.compare(this.getX(), other.getX()) == 0
+                && Double.compare(this.getY(), other.getY()) == 0
+                && Double.compare(this.getZ(), other.getZ()) == 0
+                && this.getCenterStar().equals(other.getCenterStar())) {
+            return true;
+        }
+
         return false;
     }
 
