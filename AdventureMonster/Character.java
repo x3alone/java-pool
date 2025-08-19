@@ -6,18 +6,14 @@ public class Character {
     private int currentHealth;
     private final String name;
 
-    // Static list to track all created characters
     private static final List<Character> allCharacters = new ArrayList<>();
 
-    // Constructor
     public Character(String name, int maxHealth) {
         this.name = name;
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         allCharacters.add(this);
     }
-
-    // Getters
     public int getMaxHealth() {
         return maxHealth;
     }
@@ -30,7 +26,6 @@ public class Character {
         return name;
     }
 
-    // Methods
     public void takeDamage(int amount) {
         currentHealth -= amount;
         if (currentHealth < 0) {
@@ -39,7 +34,7 @@ public class Character {
     }
 
     public void attack(Character target) {
-        target.takeDamage(9); // default damage
+        target.takeDamage(9);
     }
 
     @Override
@@ -50,7 +45,6 @@ public class Character {
         return name + " : " + currentHealth + "/" + maxHealth;
     }
 
-    // Static methods
     public static String printStatus() {
         StringBuilder sb = new StringBuilder();
         sb.append("------------------------------------------\n");
