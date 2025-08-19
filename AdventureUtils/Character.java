@@ -59,6 +59,7 @@ public class Character {
     return sb.toString();
 }
 
+
 public static Character fight(Character c1, Character c2) {
     while (c1.getCurrentHealth() > 0 && c2.getCurrentHealth() > 0) {
         c1.attack(c2);
