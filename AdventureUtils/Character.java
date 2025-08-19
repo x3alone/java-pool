@@ -55,7 +55,7 @@ public class Character {
             sb.append(" - ").append(c.toString()).append("\n");
         }
     }
-    sb.append("------------------------------------------");
+    sb.append("------------------------------------------\n");
     return sb.toString();
 }
 
