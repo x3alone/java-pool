@@ -22,7 +22,6 @@ public class Character {
     public int getCurrentHealth() {
         return currentHealth;
     }
-
     public String getName() {
         return name;
     }
