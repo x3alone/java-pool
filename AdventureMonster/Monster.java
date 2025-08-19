@@ -8,7 +8,8 @@ public class Monster extends Character {
     public String toString() {
         if (getCurrentHealth() == 0) {
             return getName() + " is a monster and is dead";
+        } else {
+            return getName() + " is a monster with " + getCurrentHealth() + " HP";
         }
-        return getName() + " is a monster with " + getCurrentHealth() + " HP";
     }
 }
