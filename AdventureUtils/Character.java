@@ -45,31 +45,32 @@ public class Character {
         return name + " : " + currentHealth + "/" + maxHealth;
     }
     public static String printStatus() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("------------------------------------------\n");
-        if (allCharacters.isEmpty()) {
-            sb.append("Nobody's fighting right now !\n");
-        } else {
-            sb.append("Characters currently fighting : \n");
-            for (Character c : allCharacters) {
-                sb.append(" - ").append(c.toString()).append("\n");
-            }
+    StringBuilder sb = new StringBuilder();
+    sb.append("------------------------------------------\n");
+    if (allCharacters.isEmpty()) {
+        sb.append("Nobody's fighting right now !\n");
+    } else {
+        sb.append("Characters currently fighting : \n");
+        for (Character c : allCharacters) {
+            sb.append(" - ").append(c.toString()).append("\n");
         }
-        sb.append("------------------------------------------\n");
-        return sb.toString();
     }
+    sb.append("------------------------------------------");
+    return sb.toString();
+}
 
-    public static Character fight(Character c1, Character c2) {
-        while (c1.getCurrentHealth() > 0 && c2.getCurrentHealth() > 0) {
-            c1.attack(c2);
-            if (c2.getCurrentHealth() == 0) {
-                return c1;
-            }
-            c2.attack(c1);
-            if (c1.getCurrentHealth() == 0) {
-                return c2;
-            }
+public static Character fight(Character c1, Character c2) {
+    while (c1.getCurrentHealth() > 0 && c2.getCurrentHealth() > 0) {
+        c1.attack(c2);
+        if (c2.getCurrentHealth() == 0) {
+            return c1;
         }
-        return null;
+        c2.attack(c1);
+        if (c1.getCurrentHealth() == 0) {
+            return c2;
+        }
     }
+    return null;
+}
+
 }
