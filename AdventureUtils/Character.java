@@ -25,6 +25,7 @@ public class Character {
     public String getName() {
         return name;
     }
+
     public void takeDamage(int amount) {
         currentHealth -= amount;
         if (currentHealth < 0) {
@@ -36,6 +37,13 @@ public class Character {
         target.takeDamage(9);
     }
 
+    @Override
+    public String toString() {
+        if (currentHealth == 0) {
+            return name + " : KO";
+        }
+        return name + " : " + currentHealth + "/" + maxHealth;
+    }
     public static String printStatus() {
     StringBuilder sb = new StringBuilder();
     sb.append("------------------------------------------\n");
@@ -50,7 +58,6 @@ public class Character {
     sb.append("------------------------------------------\n");
     return sb.toString();
 }
-
 
 
 public static Character fight(Character c1, Character c2) {
