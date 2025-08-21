@@ -15,38 +15,40 @@ public class Templar extends Character implements Healer, Tank {
     }
 
     @Override
-    public void heal(Character target) throws DeadCharacterException {
-        if (getCurrentHealth() == 0) throw new DeadCharacterException(this);
-        if (target.getCurrentHealth() == 0) return;
-        target.setCurrentHealth(target.getCurrentHealth() + healCapacity);
-    }
-
-    @Override
     public int getShield() {
         return shield;
     }
 
     @Override
-    public void attack(Character other) throws DeadCharacterException {
+    public void heal(Character target) throws DeadCharacterException {
         if (getCurrentHealth() == 0) throw new DeadCharacterException(this);
-        this.heal(this);
-        int damage = (getWeapon() != null) ? getWeapon().getDamage() : 6;
-        other.takeDamage(damage);
+        if (target.getCurrentHealth() == 0) throw new DeadCharacterException(target);
+        target.setCurrentHealth(target.getCurrentHealth() + healCapacity);
     }
 
     @Override
-    public void takeDamage(int dmg) throws DeadCharacterException {
+    public void attack(Character target) throws DeadCharacterException {
         if (getCurrentHealth() == 0) throw new DeadCharacterException(this);
-        int actualDamage = Math.max(0, dmg - shield);
-        setCurrentHealth(getCurrentHealth() - actualDamage);
+        heal(this);
+        int damage = getWeapon() != null ? getWeapon().getDamage() : 6;
+        target.takeDamage(damage);
+    }
+
+    @Override
+    public void takeDamage(int damage) throws DeadCharacterException {
+        if (getCurrentHealth() == 0) throw new DeadCharacterException(this);
+        int reduced = damage - shield;
+        if (reduced < 0) reduced = 0;
+        setCurrentHealth(getCurrentHealth() - reduced);
     }
 
     @Override
     public String toString() {
-        String s = (getCurrentHealth() == 0)
-                ? getName() + " has been beaten, even with its " + shield + " shield. So bad, it could heal " + healCapacity + " HP."
-                : getName() + " is a strong Templar with " + getCurrentHealth() + " HP. It can heal " + healCapacity + " HP and has a shield of " + shield + ".";
-        if (getWeapon() != null) s += " He has the weapon " + getWeapon().toString();
-        return s;
+        if (getCurrentHealth() == 0) {
+            return getName() + " has been beaten, even with its " + shield + " shield. So bad, it could heal " + healCapacity + " HP" +
+                    (getWeapon() != null ? ". He has the weapon " + getWeapon() : "");
+        }
+        return getName() + " is a strong Templar with " + getCurrentHealth() + " HP. It can heal " + healCapacity + " HP and has a shield of " + shield +
+                (getWeapon() != null ? ". He has the weapon " + getWeapon() : "");
     }
 }

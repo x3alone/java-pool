@@ -5,10 +5,10 @@ public class Monster extends Character {
     }
 
     @Override
-    public void attack(Character other) throws DeadCharacterException {
+    public void attack(Character target) throws DeadCharacterException {
         if (getCurrentHealth() == 0) throw new DeadCharacterException(this);
-        int damage = (getWeapon() != null) ? getWeapon().getDamage() : 7;
-        other.takeDamage(damage);
+        int damage = getWeapon() != null ? getWeapon().getDamage() : 7;
+        target.takeDamage(damage);
     }
 
     @Override
@@ -20,10 +20,10 @@ public class Monster extends Character {
 
     @Override
     public String toString() {
-        String s = (getCurrentHealth() == 0)
-                ? getName() + " is a monster and is dead"
-                : getName() + " is a monster with " + getCurrentHealth() + " HP.";
-        if (getWeapon() != null) s += " He has the weapon " + getWeapon().toString();
-        return s;
+        String base = (getCurrentHealth() > 0)
+                ? getName() + " is a monster with " + getCurrentHealth() + " HP"
+                : getName() + " is a monster and is dead";
+        if (getWeapon() != null) base += ". He has the weapon " + getWeapon().toString();
+        return base;
     }
 }

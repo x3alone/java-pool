@@ -1,4 +1,4 @@
-public class DeadCharacterException extends RuntimeException {
+public class DeadCharacterException extends Exception {
     private final Character character;
 
     public DeadCharacterException(Character character) {
