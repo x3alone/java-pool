@@ -27,7 +27,6 @@ public class Character {
         return name;
     }
 
-    // Methods
     public void takeDamage(int amount) {
         currentHealth -= amount;
         if (currentHealth < 0) currentHealth = 0;
