@@ -4,7 +4,7 @@ import java.util.List;
 public class Character {
 
     private final int maxHealth;
-    protected int currentHealth;
+    private int currentHealth;
     private final String name;
 
     private static List<Character> allCharacters = new ArrayList<>();
@@ -27,12 +27,20 @@ public class Character {
     public String getName() {
         return name;
     }
+    
+
+    protected void setCurrentHealth(int health) {
+        if (health < 0) {
+            this.currentHealth = 0;
+        } else if (health > maxHealth) {
+            this.currentHealth = maxHealth;
+        } else {
+            this.currentHealth = health;
+        }
+    }
 
     public void takeDamage(int damage) {
-        currentHealth -= damage;
-        if (currentHealth < 0) {
-            currentHealth = 0;
-        }
+        setCurrentHealth(currentHealth - damage);
     }
 
     public void attack(Character other) {
