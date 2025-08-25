@@ -14,6 +14,9 @@ public class ParseDate {
     }
 
     public static LocalTime parseTimeFormat(String stringDate) {
+        if (stringDate == null || stringDate.isEmpty()) {
+            return null;
+        }
         String[] parts = stringDate.split(",\\s*");
 
         String[] hourParts = parts[0].split(" ");
