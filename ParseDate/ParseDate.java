@@ -1,22 +1,25 @@
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class ParseDate {
 
     public static LocalDateTime parseIsoFormat(String stringDate) {
+        if (stringDate == null || stringDate.isEmpty()) return null;
         return LocalDateTime.parse(stringDate);
     }
 
     public static LocalDate parseFullTextFormat(String stringDate) {
-        return LocalDate.parse(stringDate, java.time.format.DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy", java.util.Locale.FRENCH));
+        if (stringDate == null || stringDate.isEmpty()) return null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE dd MMMM yyyy", Locale.FRENCH);
+        return LocalDate.parse(stringDate, formatter);
     }
 
     public static LocalTime parseTimeFormat(String stringDate) {
-        if (stringDate == null || stringDate.isEmpty()) {
-            return null;
-        }
+        if (stringDate == null || stringDate.isEmpty()) return null;
+
         String[] parts = stringDate.split(",\\s*");
 
         String[] hourParts = parts[0].split(" ");
@@ -35,5 +38,4 @@ public class ParseDate {
 
         return LocalTime.of(hour, minute, second);
     }
-
 }
