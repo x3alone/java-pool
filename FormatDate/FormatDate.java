@@ -11,7 +11,6 @@ public class FormatDate {
 
         int day = dateTime.getDayOfMonth();
         String month = dateTime.getMonth().getDisplayName(java.time.format.TextStyle.FULL, Locale.FRENCH);
-
         int year = dateTime.getYear();
         int hour = dateTime.getHour();
         int minute = dateTime.getMinute();
@@ -22,18 +21,20 @@ public class FormatDate {
     }
     public static String formatSimple(LocalDate date) {
         if (date == null) return null;
+
         String month = date.getMonth().getDisplayName(java.time.format.TextStyle.FULL, Locale.ITALIAN);
         int day = date.getDayOfMonth();
-
         int year = date.getYear() % 100;
 
         return String.format("%s %d %02d", month, day, year);
     }
-
     public static String formatIso(LocalTime time) {
         if (time == null) return null;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss.nnnnnnnnn");
-        return time.format(formatter);
+        if (time.getNano() == 0) {
+            return time.format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        } else {
+            return time.format(DateTimeFormatter.ofPattern("HH:mm:ss.nnnnnnnnn"));
+        }
     }
 }
