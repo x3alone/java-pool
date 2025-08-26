@@ -1,3 +1,6 @@
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class RegexMatch {
     public static boolean containsOnlyAlpha(String s) {
         return s.matches("^[a-zA-Z]+$");
@@ -8,6 +11,7 @@ public class RegexMatch {
     }
     
     public static boolean containsAtLeast3SuccessiveA(String s) {
-        return s.matches(".*a{3,}.*");
-    }
+Pattern p = Pattern.compile("A{3,}");
+        Matcher m = p.matcher(s);
+        return m.find();    }
 }
