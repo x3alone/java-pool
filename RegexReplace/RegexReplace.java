@@ -6,37 +6,42 @@ public class RegexReplace {
         return s.replaceAll("(\\d+)(cm|€)(?=\\s|$)", "$1");
     }
     public static String obfuscateEmail(String s) {
-        String[] parts = s.split("@");
-        if (parts.length != 2) return s;
+        String[] splited = s.split("@");
+        if (splited.length != 2)
+            return s;
 
-        String username = parts[0];
-        String domain = parts[1];
+        String username = splited[0];
+        String domain = splited[1];
 
-        if (username.matches(".*[._-].*")) {
-            username = username.replaceAll("([._-]).", "$1*");
+        Pattern specialCharPattern = Pattern.compile("(?=[-._])(.+)");
+        Matcher matcher = specialCharPattern.matcher(username);
+
+        if (matcher.find()) {
+            username = username.replaceAll("([-._])(.+)", "$1");
+            username += "*".repeat(matcher.group().length() - 1);
         } else {
             if (username.length() > 3) {
                 username = username.substring(0, 3) + "*".repeat(username.length() - 3);
             }
         }
-        if (domain.matches("\\w+\\.\\w+\\.\\w+")) {
-            Matcher m = Pattern.compile("(\\w+)\\.(\\w+)\\.(\\w+)").matcher(domain);
-            if (m.matches()) {
-                domain = "*".repeat(m.group(1).length()) + "." + m.group(2) + "." + "*".repeat(m.group(3).length());
+
+        specialCharPattern = Pattern.compile("(\\w+)\\.(\\w+)\\.(\\w+)");
+        matcher = specialCharPattern.matcher(domain);
+
+        if (matcher.find()) {
+            domain = "*".repeat(matcher.group(1).length()) + "." + matcher.group(2) + "."
+                    + "*".repeat(matcher.group(3).length());
+        }
+
+        specialCharPattern = Pattern.compile("(\\w+)\\.(\\w+)");
+        matcher = specialCharPattern.matcher(domain);
+
+        if (matcher.find()) {
+            if (matcher.group(2).equals("com") || matcher.group(2).equals("net") || matcher.group(2).equals("org")) {
+                domain = "*".repeat(matcher.group(1).length()) + "." + matcher.group(2);
+            } else {
+                domain = "*".repeat(matcher.group(1).length()) + "." + "*".repeat(matcher.group(2).length());
             }
-        } else if (domain.matches("\\w+\\.\\w+")) {
-            Matcher m = Pattern.compile("(\\w+)\\.(\\w+)").matcher(domain);
-            if (m.matches()) {
-                String second = m.group(1);
-                String top = m.group(2);
-                if (top.equals("com") || top.equals("org") || top.equals("net")) {
-                    domain = "*".repeat(second.length()) + "." + top;
-                } else {
-                    domain = "*".repeat(second.length()) + "." + "*".repeat(top.length());
-                }
-            }
-        } else {
-            domain = "*".repeat(domain.length());
         }
 
         return username + "@" + domain;
