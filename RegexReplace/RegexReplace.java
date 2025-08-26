@@ -14,7 +14,7 @@ public class RegexReplace {
         String domain = parts[1];
 
         if (username.matches(".*[._-].*")) {
-            username = username.replaceAll("([._-]).+", "$1***");
+            username = username.replaceAll("([._-]).", "$1*");
         } else {
             if (username.length() == 4) {
                 username = username.substring(0, 3) + "*";
